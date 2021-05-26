@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1622013667 source:f:\deepika\programming\cpp\multiplicationoftwovector\main.cpp
+	<bits/stdc++.h>
+	<iostream>
+	<vector>
+
