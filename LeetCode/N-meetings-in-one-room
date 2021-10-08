@@ -1,0 +1,56 @@
+/**   https://practice.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/
+    */
+
+
+
+class Solution
+{
+    public:
+    //Function to find the maximum number of meetings that can
+    //be performed in a meeting room.
+    static bool comparator(pair<int,int> x, pair<int,int> y)
+    {
+        /** if the end time x equals  to y then compare for its starting value
+            else if end time of x is smaller than y return true 
+            else false
+            */
+        if(x.second == y.second)
+        {
+            if(x.first < y.first) return true ;
+        }
+        else if(x.second < y.second)
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    int maxMeetings(int start[], int end[], int n)
+    {
+        // Declaring vector of pairs
+        vector<pair<int,int>> v(n);
+        
+        // Entering values in vector of pairs
+        for(int i = 0; i < n; i++)
+        {
+            v[i] = {start[i] , end[i]};
+        }
+        // Sorting the end time 
+        sort(v.begin(),v.end(),comparator);
+        
+        // Count is 1 bcz we will not check for the last element
+        int count = 1, i = 0;
+        for(int j = 1; j < n ; j++)
+        {
+            /**if v[i] end time is less than v[j] starting time
+                will update count and i 
+                */
+            if(v[i].second < v[j].first)
+            {
+                count++;
+                i = j;
+            }
+        }
+        return count;
+    }
+};
