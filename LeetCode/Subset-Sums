@@ -1,0 +1,26 @@
+/** https://practice.geeksforgeeks.org/problems/subset-sums2234/1#
+  */
+
+class Solution
+{
+public:
+    void sumSet(vector<int> & arr, int N, int i, int sum, vector<int> &Res)
+    {
+        if(i == N)
+        {
+            Res.push_back(sum);
+            return;
+        }
+        // taking the element
+        sumSet(arr, N, i+1, sum+arr[i], Res);
+        // not taking the element
+        sumSet(arr, N, i+1, sum, Res);
+    }
+    vector<int> subsetSums(vector<int> arr, int N)
+    {
+         vector<int> Res; // to store the result
+         sumSet(arr, N, 0, 0, Res);
+         sort(Res.begin() , Res.end());
+         return Res;
+    }
+};
