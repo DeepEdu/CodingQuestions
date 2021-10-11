@@ -1,0 +1,41 @@
+/**  https://leetcode.com/problems/combination-sum/
+  */
+  
+  class Solution {
+public:
+    void subSet(vector<int> &nums, int target, int i, vector<int> &set, vector<vector<int>> &Res)
+    {
+        /** if index is equal to the array size and target is zero store the subset
+            else if index is equal but target is not zero return 
+            */
+        if(i == nums.size() )
+        {
+            if(target == 0)
+            {
+                //insert the present set  
+                Res.push_back(set);
+                return ;
+            }
+            else{
+                return ;
+            }
+        }
+            
+        // taking the element        
+        if(nums[i] <= target)
+        {
+            set.push_back(nums[i]);
+            subSet(nums, (target-nums[i]), i, set, Res);
+            set.pop_back();
+        }
+        // not taking the element
+        subSet(nums, target, i+1, set, Res);  
+    }
+    
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> Res;
+        vector<int> set;
+        subSet(candidates, target, 0, set, Res);
+        return Res;        
+    }
+};
