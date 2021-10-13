@@ -1,0 +1,44 @@
+/** https://leetcode.com/problems/combination-sum-ii/
+*/
+
+
+class Solution {
+public:
+    void SumSet(vector<int> &a, int target, int i, vector<int> &SubSet, vector<vector<int>> &Res)
+    {
+        int s = a.size();
+        if(target == 0)
+        {
+            Res.push_back(SubSet);
+            return;
+        }
+        for(int j = i; j < s; j++)
+        {
+            // to remove duplicates
+            if(j > i && a[j] == a[j-1]) continue;
+            
+            // if current value is smaller than target then store the value in vector
+            if(a[j] <= target) 
+            {
+                SubSet.push_back(a[j]);
+                SumSet(a, (target-a[j]), j+1, SubSet, Res);
+                SubSet.pop_back();
+            }
+            else
+            {
+                /** if current value is greater than target
+                    all the value after that will be greater as array is sorted
+                    */
+                break;
+            }
+        }
+    }
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target)
+    {
+        vector<vector<int>> Res;
+        vector<int> SubSet;
+        sort(candidates.begin(), candidates.end());
+        SumSet(candidates, target, 0, SubSet, Res);
+        return Res;
+    }
+};
