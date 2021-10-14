@@ -1,0 +1,48 @@
+/** https://leetcode.com/problems/palindrome-partitioning/
+  */
+
+
+class Solution {
+public:
+    void stringpalindrome(string &s, int i, vector<vector<string>> &Res, vector<string> &str)
+    {
+        if(i == s.size())
+        {
+            // store the substring in Result 
+            Res.push_back(str);
+            return ;
+        }
+        for(int j = i; j < s.size(); j++)
+        {
+            /** if the string is a palindrome store in the array 
+                else move to next position
+                */
+            if(palindrome(s, i, j))
+            {
+                // storing substring
+                str.push_back(s.substr(i,j-i+1));
+                stringpalindrome(s, j+1, Res, str);
+                str.pop_back();
+            }
+        }
+    }
+    // to find string is a palindrome or not
+    bool palindrome(string &s, int start, int end) 
+    {
+        while(start <= end)
+        {
+            // return false if a string is not palindrome
+            if(s[start] != s[end]) return false;
+            start++; end--;
+        }
+        // return true if a string is a palindrome
+        return true;
+    }
+
+    vector<vector<string>> partition(string s) {
+        vector<vector<string>> Res;
+        vector<string> str;
+        stringpalindrome(s, 0, Res, str);
+        return Res;
+    }
+};
