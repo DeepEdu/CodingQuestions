@@ -1,0 +1,37 @@
+/** https://leetcode.com/problems/permutation-sequence/
+*/
+
+
+class Solution {
+public:
+    string getPermutation(int n, int k) {
+        string s = "";
+        int num = 1;
+        vector<int> v;
+        // finding the factorial 
+        for(int i = 1; i<n; i++)
+        {
+            num = num*i;
+            // storing numbers
+            v.push_back(i); 
+        }
+        v.push_back(n);
+        // for 0 base indexing 
+        k = k-1;
+        while(true)
+        {
+            s = s + to_string(v[k/num]);
+            
+            // removing to get new array
+            v.erase(v.begin() + k/num);
+            
+            //if array is empty or at last step
+            if(v.size() == 0) break ;
+            
+            // finding remaining value
+            k = k % num;
+            num = num/v.size();
+        }
+        return s;
+    }
+};
