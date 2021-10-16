@@ -1,0 +1,62 @@
+/** Problem Link : https://leetcode.com/problems/permutations/ 
+*/
+
+2 SOLUTIONS
+---------------------------------------------SOLUTION 1--------------------------------------------------------------------
+
+class Solution {
+public:
+    void allPermute(vector<int>& nums,vector<int> &v,vector<vector<int>> &Res,int temp[])
+    {
+        if(v.size() == nums.size()){
+            Res.push_back(v);
+            return;
+        }  
+        for(int i = 0; i < nums.size(); i++)
+        {
+            if(temp[i] == 0)
+            {
+                temp[i]=1;  //marking that number 
+                v.push_back(nums[i]); //storing the number in vector
+                allPermute(nums,v,Res,temp); 
+                temp[i]=0; // considering for other permutation
+                v.pop_back();
+            }   
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<int> v;
+        vector<vector<int>> Res;
+        int temp[nums.size()] ;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            temp[i]=0; //initialising the array
+        }
+        allPermute(nums,v,Res,temp);
+        return Res;
+    }
+};
+
+---------------------------------------------SOLUTION 2--------------------------------------------------------------------
+class Solution {
+public:
+    void allPermute(int i , vector<int>& nums, vector<vector<int>> &Res)
+    {
+        if(i == nums.size())
+        {
+            Res.push_back(nums); 
+            return ;
+        }
+        for(int j = i; j <nums.size(); j++)
+        {
+            swap(nums[i], nums[j]); 
+            allPermute(i+1, nums, Res); // moving to next element so that swaping can be done for further values.
+            swap(nums[i], nums[j]);
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> Res;
+        allPermute(0, nums, Res);
+        return Res;
+    }
+};
